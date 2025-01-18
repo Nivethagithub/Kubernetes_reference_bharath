@@ -38,8 +38,6 @@ values-eks.yaml and values-gke.yaml for environment-specific overrides.
 
 𝐇𝐞𝐥𝐦 𝐂𝐡𝐚𝐫𝐭 𝐒𝐭𝐫𝐮𝐜𝐭𝐮𝐫𝐞
 
-![image alt] (https://github.com/bharathreddy2103/Kubernetes/blob/5c9c12d5118e836989a40b64042b2143fb0d9edd/%F0%9D%90%8E%F0%9D%90%A7%F0%9D%90%9E%20%F0%9D%90%87%F0%9D%90%9E%F0%9D%90%A5%F0%9D%90%A6%20%F0%9D%90%82%F0%9D%90%A1%F0%9D%90%9A%F0%9D%90%AB%F0%9D%90%AD%20%F0%9D%90%9F%F0%9D%90%A8%F0%9D%90%AB%20%F0%9D%90%84%F0%9D%90%8A%F0%9D%90%92%20%F0%9D%90%9A%F0%9D%90%A7%F0%9D%90%9D%20%F0%9D%90%86%F0%9D%90%8A%F0%9D%90%84/%F0%9D%90%87%F0%9D%90%9E%F0%9D%90%A5%F0%9D%90%A6%20%F0%9D%90%82%F0%9D%90%A1%F0%9D%90%9A%F0%9D%90%AB%F0%9D%90%AD%20%F0%9D%90%92%F0%9D%90%AD%F0%9D%90%AB%F0%9D%90%AE%F0%9D%90%9C%F0%9D%90%AD%F0%9D%90%AE%F0%9D%90%AB%F0%9D%90%9E.PNG)
-
 𝟏. 𝐂𝐡𝐚𝐫𝐭.𝐲𝐚𝐦𝐥
 
 Defines the metadata of the Helm chart.
