@@ -152,7 +152,7 @@
 
 34. How can you drain a node in Kubernetes?
 
-    Use kubectl drain <node-name>.
+    kubectl drain <node-name>
 
 35. How does Kubernetes handle Secrets encryption?
     
