@@ -71,7 +71,7 @@
 
 17. How do you perform a rolling update in Kubernetes?
     
-    Update the Deployment using kubectl apply -f <deployment.yaml> or modify the image tag in the YAML file.
+    kubectl rollout restart deployment <deployment-name>.
 
 18. How do you rollback a Deployment in Kubernetes?
     
