@@ -36,11 +36,11 @@
 
 9. How do you scale a Deployment in Kubernetes?
 
-   Use kubectl scale deployment <deployment-name> --replicas=<number>.
+   kubectl scale deployment <deployment-name> --replicas=<number>.
 
 10. How to check running Pods in Kubernetes?
 
-    Use kubectl get pods.
+    kubectl get pods.
 
 11. What is a ConfigMap in Kubernetes?
 
