@@ -104,7 +104,7 @@
     
 25. What is a Network Policy in Kubernetes?
 
-   A Network Policy defines rules for network traffic to/from Pods.
+    A Network Policy defines rules for network traffic to/from Pods.
 
 26. How do you monitor Kubernetes clusters?
 
