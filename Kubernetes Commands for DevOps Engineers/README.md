@@ -1,4 +1,4 @@
-Essential Kubernetes Commands that DevOps Engineers commonly use in their day-to-day activities:
+**Essential Kubernetes Commands that DevOps Engineers commonly use in their Day-to-Day activities:**
 
 ### Basic Commands
 
