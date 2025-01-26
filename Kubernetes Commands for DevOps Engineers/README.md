@@ -1,132 +1,121 @@
-Here’s a list of essential Kubernetes commands used by DevOps Engineers in their day-to-day activities, covering common real-world tasks like deployments, troubleshooting, resource management, and monitoring:
+Essential Kubernetes Commands that DevOps Engineers commonly use in their day-to-day activities:
 
-General Commands
-
-Cluster Information
+Basic Commands
+Get Cluster Information
 
 kubectl cluster-info
+Displays the address of the Kubernetes master and services running in the cluster.
+
+List Nodes
+
 kubectl get nodes
-kubectl describe node <node-name>
+Lists all nodes in the cluster.
 
 Namespace Management
+List Namespaces
 
 kubectl get namespaces
-kubectl create namespace <namespace-name>
-kubectl delete namespace <namespace-name>
-Workload Management
-Viewing Deployments, Pods, and Services
+Displays all namespaces in the cluster.
+
+Create Namespace
+
+kubectl create namespace <namespace_name>
+Creates a new namespace.
+
+Delete Namespace
+
+kubectl delete namespace <namespace_name>
+Deletes a specified namespace.
+
+Pod Management
+List Pods
+
+kubectl get pods
+Lists all pods in the default namespace.
+
+Describe Pod
+
+kubectl describe pod <pod_name>
+Displays detailed information about a specific pod.
+
+Create Pod
+
+kubectl run <pod_name> --image=<image_name>
+Creates a new pod running the specified container image.
+
+Delete Pod
+
+kubectl delete pod <pod_name>
+Deletes a specified pod.
+
+Deployment Management
+List Deployments
 
 kubectl get deployments
-kubectl get pods
+Lists all deployments in the default namespace.
+
+Create Deployment
+
+kubectl create deployment <deployment_name> --image=<image_name>
+Creates a new deployment with the specified container image.
+
+Delete Deployment
+
+kubectl delete deployment <deployment_name>
+Deletes a specified deployment.
+
+Service Management
+List Services
+
 kubectl get services
-kubectl get pods -n <namespace>
-kubectl describe pod <pod-name>
-Creating and Managing Deployments
+Lists all services in the default namespace.
 
-kubectl apply -f <deployment-file>.yaml
-kubectl create deployment <deployment-name> --image=<image-name>
-kubectl rollout status deployment <deployment-name>
-kubectl rollout undo deployment <deployment-name>
-kubectl delete deployment <deployment-name>
-Scaling Deployments
+Create Service
 
-kubectl scale deployment <deployment-name> --replicas=<number-of-replicas>
-Exposing Deployments
+kubectl expose deployment <deployment_name> --type=LoadBalancer --name=<service_name>
+Creates a new service to expose a deployment.
 
-kubectl expose deployment <deployment-name> --type=<service-type> --port=<port> --target-port=<target-port>
-Pod and Container Management
-Accessing and Debugging Pods
+Delete Service
 
-kubectl logs <pod-name>
-kubectl logs <pod-name> -c <container-name>
-kubectl exec -it <pod-name> -- /bin/bash
-kubectl exec -n <namespace> <pod-name> -- <command>
-Deleting Pods
+kubectl delete service <service_name>
+Deletes a specified service.
 
-kubectl delete pod <pod-name>
-kubectl delete pod <pod-name> --force --grace-period=0
-Checking Pod Events
-
-kubectl get events
-kubectl describe pod <pod-name>
 ConfigMap and Secret Management
-Creating ConfigMaps
+Create ConfigMap
 
-kubectl create configmap <config-name> --from-literal=key=value
-kubectl create configmap <config-name> --from-file=<file-path>
-kubectl apply -f <configmap-file>.yaml
-Creating Secrets
+kubectl create configmap <configmap_name> --from-literal=<key>=<value>
+Creates a new ConfigMap from literal values.
 
-kubectl create secret generic <secret-name> --from-literal=username=<user> --from-literal=password=<pass>
-kubectl apply -f <secret-file>.yaml
-Viewing ConfigMaps and Secrets
+Create Secret
 
-kubectl get configmap
-kubectl get secret
-kubectl describe configmap <configmap-name>
-kubectl describe secret <secret-name>
-Troubleshooting
-Node and Resource Issues
+kubectl create secret generic <secret_name> --from-literal=<key>=<value>
+Creates a new Secret from literal values.
 
-kubectl get nodes
-kubectl describe node <node-name>
-kubectl top node
-kubectl top pod
-Resource Utilization
+Logs and Debugging
+View Pod Logs
 
-kubectl top pod -n <namespace>
-kubectl get hpa
-Troubleshooting Errors
+kubectl logs <pod_name>
+Displays the logs of a specific pod.
 
-kubectl describe pod <pod-name>
-kubectl logs <pod-name>
-kubectl exec -it <pod-name> -- /bin/sh
-Networking
-Ingress and Service Management
+Execute Command in Pod
 
-kubectl get ingress
-kubectl get svc
-kubectl describe svc <service-name>
-Port Forwarding
+kubectl exec -it <pod_name> -- <command>
+Executes a command in a running pod.
 
-kubectl port-forward <pod-name> <local-port>:<container-port>
-DNS Troubleshooting
+Scaling and Rollouts
+Scale Deployment
 
-kubectl exec -it <pod-name> -- nslookup <service-name>
-Helm Commands (Optional in DevOps Workflows)
-Helm Release Management
-helm install <release-name> <chart-name>
-helm upgrade <release-name> <chart-name>
-helm rollback <release-name>
-helm delete <release-name>
-Viewing Helm Releases
-helm list
-helm status <release-name>
-Kubernetes Resource Management
-Viewing and Editing Resources
+kubectl scale deployment <deployment_name> --replicas=<number_of_replicas>
+Scales a deployment to the specified number of replicas.
 
-kubectl get all
-kubectl edit deployment <deployment-name>
-kubectl describe service <service-name>
-Dry Run to Preview Changes
+Rollout Status
 
-kubectl apply -f <file>.yaml --dry-run=client
-Deleting Resources
+kubectl rollout status deployment/<deployment_name>
+Displays the rollout status of a deployment.
 
-kubectl delete -f <file>.yaml
-kubectl delete pod,svc <name>
-Monitoring and Logging
-Enabling Resource Metrics
+Rollout Undo
 
-kubectl top pod
-kubectl top node
-Viewing Logs
+kubectl rollout undo deployment/<deployment_name>
+Rolls back a deployment to a previous revision.
 
-kubectl logs -f <pod-name>
-kubectl logs -f <pod-name> -c <container-name>
-Backup and Restore
-Backing up Resources
-kubectl get all -o yaml > backup.yaml
-Restoring Resources
-kubectl apply -f backup.yaml
-These commands are essential for managing Kubernetes clusters efficiently and are widely used by DevOps Engineers for various tasks. Let me know if you’d like examples or more explanations for any specific use case.
+These commands cover a wide range of tasks from managing namespaces, pods, and deployments to handling services, ConfigMaps, and Secrets.
