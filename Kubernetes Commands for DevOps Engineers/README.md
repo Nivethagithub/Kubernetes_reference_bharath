@@ -1,121 +1,172 @@
 Essential Kubernetes Commands that DevOps Engineers commonly use in their day-to-day activities:
 
-Basic Commands
-Get Cluster Information
+### Basic Commands
 
-kubectl cluster-info
-Displays the address of the Kubernetes master and services running in the cluster.
+1. **Get Cluster Information**
+   
+   ```sh
+   kubectl cluster-info
+   ```
+   Displays the address of the Kubernetes master and services running in the cluster.
 
-List Nodes
+2. **List Nodes**
+   
+   ```sh
+   kubectl get nodes
+   ```
+   Lists all nodes in the cluster.
 
-kubectl get nodes
-Lists all nodes in the cluster.
+### Namespace Management
 
-Namespace Management
-List Namespaces
+3. **List Namespaces**
+   
+   ```sh
+   kubectl get namespaces
+   ```
+   Displays all namespaces in the cluster.
 
-kubectl get namespaces
-Displays all namespaces in the cluster.
+4. **Create Namespace**
+   
+   ```sh
+   kubectl create namespace <namespace_name>
+   ```
+   Creates a new namespace.
 
-Create Namespace
+5. **Delete Namespace**
+   
+   ```sh
+   kubectl delete namespace <namespace_name>
+   ```
+   Deletes a specified namespace.
 
-kubectl create namespace <namespace_name>
-Creates a new namespace.
+### Pod Management
 
-Delete Namespace
+6. **List Pods**
+   
+   ```sh
+   kubectl get pods
+   ```
+   Lists all pods in the default namespace.
 
-kubectl delete namespace <namespace_name>
-Deletes a specified namespace.
+7. **Describe Pod**
+   
+   ```sh
+   kubectl describe pod <pod_name>
+   ```
+   Displays detailed information about a specific pod.
 
-Pod Management
-List Pods
+8. **Create Pod**
+9. 
+   ```sh
+   kubectl run <pod_name> --image=<image_name>
+   ```
+   Creates a new pod running the specified container image.
 
-kubectl get pods
-Lists all pods in the default namespace.
+9. **Delete Pod**
+    
+   ```sh
+   kubectl delete pod <pod_name>
+   ```
+   Deletes a specified pod.
 
-Describe Pod
+### Deployment Management
 
-kubectl describe pod <pod_name>
-Displays detailed information about a specific pod.
+10. **List Deployments**
+    
+    ```sh
+    kubectl get deployments
+    ```
+    Lists all deployments in the default namespace.
 
-Create Pod
+11. **Create Deployment**
+    
+    ```sh
+    kubectl create deployment <deployment_name> --image=<image_name>
+    ```
+    Creates a new deployment with the specified container image.
 
-kubectl run <pod_name> --image=<image_name>
-Creates a new pod running the specified container image.
+12. **Delete Deployment**
+    
+    ```sh
+    kubectl delete deployment <deployment_name>
+    ```
+    Deletes a specified deployment.
 
-Delete Pod
+### Service Management
 
-kubectl delete pod <pod_name>
-Deletes a specified pod.
+13. **List Services**
+    
+    ```sh
+    kubectl get services
+    ```
+    Lists all services in the default namespace.
 
-Deployment Management
-List Deployments
+14. **Create Service**
+    
+    ```sh
+    kubectl expose deployment <deployment_name> --type=LoadBalancer --name=<service_name>
+    ```
+    Creates a new service to expose a deployment.
 
-kubectl get deployments
-Lists all deployments in the default namespace.
+15. **Delete Service**
+    
+    ```sh
+    kubectl delete service <service_name>
+    ```
+    Deletes a specified service.
 
-Create Deployment
+### ConfigMap and Secret Management
 
-kubectl create deployment <deployment_name> --image=<image_name>
-Creates a new deployment with the specified container image.
+16. **Create ConfigMap**
+    
+    ```sh
+    kubectl create configmap <configmap_name> --from-literal=<key>=<value>
+    ```
+    Creates a new ConfigMap from literal values.
 
-Delete Deployment
+17. **Create Secret**
+    
+    ```sh
+    kubectl create secret generic <secret_name> --from-literal=<key>=<value>
+    ```
+    Creates a new Secret from literal values.
 
-kubectl delete deployment <deployment_name>
-Deletes a specified deployment.
+### Logs and Debugging
 
-Service Management
-List Services
+18. **View Pod Logs**
+    
+    ```sh
+    kubectl logs <pod_name>
+    ```
+    Displays the logs of a specific pod.
 
-kubectl get services
-Lists all services in the default namespace.
+19. **Execute Command in Pod**
+    
+    ```sh
+    kubectl exec -it <pod_name> -- <command>
+    ```
+    Executes a command in a running pod.
 
-Create Service
+### Scaling and Rollouts
 
-kubectl expose deployment <deployment_name> --type=LoadBalancer --name=<service_name>
-Creates a new service to expose a deployment.
+20. **Scale Deployment**
+    
+    ```sh
+    kubectl scale deployment <deployment_name> --replicas=<number_of_replicas>
+    ```
+    Scales a deployment to the specified number of replicas.
 
-Delete Service
+21. **Rollout Status**
+    
+    ```sh
+    kubectl rollout status deployment/<deployment_name>
+    ```
+    Displays the rollout status of a deployment.
 
-kubectl delete service <service_name>
-Deletes a specified service.
-
-ConfigMap and Secret Management
-Create ConfigMap
-
-kubectl create configmap <configmap_name> --from-literal=<key>=<value>
-Creates a new ConfigMap from literal values.
-
-Create Secret
-
-kubectl create secret generic <secret_name> --from-literal=<key>=<value>
-Creates a new Secret from literal values.
-
-Logs and Debugging
-View Pod Logs
-
-kubectl logs <pod_name>
-Displays the logs of a specific pod.
-
-Execute Command in Pod
-
-kubectl exec -it <pod_name> -- <command>
-Executes a command in a running pod.
-
-Scaling and Rollouts
-Scale Deployment
-
-kubectl scale deployment <deployment_name> --replicas=<number_of_replicas>
-Scales a deployment to the specified number of replicas.
-
-Rollout Status
-
-kubectl rollout status deployment/<deployment_name>
-Displays the rollout status of a deployment.
-
-Rollout Undo
-
-kubectl rollout undo deployment/<deployment_name>
-Rolls back a deployment to a previous revision.
+22. **Rollout Undo**
+    ```sh
+    kubectl rollout undo deployment/<deployment_name>
+    ```
+    Rolls back a deployment to a previous revision.
 
 These commands cover a wide range of tasks from managing namespaces, pods, and deployments to handling services, ConfigMaps, and Secrets.
