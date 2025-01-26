@@ -1,172 +1,132 @@
-Essential Kubernetes Commands that DevOps Engineers commonly use in their day-to-day activities:
+Here’s a list of essential Kubernetes commands used by DevOps Engineers in their day-to-day activities, covering common real-world tasks like deployments, troubleshooting, resource management, and monitoring:
 
-### Basic Commands
+General Commands
 
-1. **Get Cluster Information**
-   
-   ```sh
-   kubectl cluster-info
-   ```
-   Displays the address of the Kubernetes master and services running in the cluster.
+Cluster Information
 
-2. **List Nodes**
-   
-   ```sh
-   kubectl get nodes
-   ```
-   Lists all nodes in the cluster.
+kubectl cluster-info
+kubectl get nodes
+kubectl describe node <node-name>
 
-### Namespace Management
+Namespace Management
 
-3. **List Namespaces**
-   
-   ```sh
-   kubectl get namespaces
-   ```
-   Displays all namespaces in the cluster.
+kubectl get namespaces
+kubectl create namespace <namespace-name>
+kubectl delete namespace <namespace-name>
+Workload Management
+Viewing Deployments, Pods, and Services
 
-4. **Create Namespace**
-   
-   ```sh
-   kubectl create namespace <namespace_name>
-   ```
-   Creates a new namespace.
+kubectl get deployments
+kubectl get pods
+kubectl get services
+kubectl get pods -n <namespace>
+kubectl describe pod <pod-name>
+Creating and Managing Deployments
 
-5. **Delete Namespace**
-   
-   ```sh
-   kubectl delete namespace <namespace_name>
-   ```
-   Deletes a specified namespace.
+kubectl apply -f <deployment-file>.yaml
+kubectl create deployment <deployment-name> --image=<image-name>
+kubectl rollout status deployment <deployment-name>
+kubectl rollout undo deployment <deployment-name>
+kubectl delete deployment <deployment-name>
+Scaling Deployments
 
-### Pod Management
+kubectl scale deployment <deployment-name> --replicas=<number-of-replicas>
+Exposing Deployments
 
-6. **List Pods**
-   
-   ```sh
-   kubectl get pods
-   ```
-   Lists all pods in the default namespace.
+kubectl expose deployment <deployment-name> --type=<service-type> --port=<port> --target-port=<target-port>
+Pod and Container Management
+Accessing and Debugging Pods
 
-7. **Describe Pod**
-   
-   ```sh
-   kubectl describe pod <pod_name>
-   ```
-   Displays detailed information about a specific pod.
+kubectl logs <pod-name>
+kubectl logs <pod-name> -c <container-name>
+kubectl exec -it <pod-name> -- /bin/bash
+kubectl exec -n <namespace> <pod-name> -- <command>
+Deleting Pods
 
-8. **Create Pod**
-9. 
-   ```sh
-   kubectl run <pod_name> --image=<image_name>
-   ```
-   Creates a new pod running the specified container image.
+kubectl delete pod <pod-name>
+kubectl delete pod <pod-name> --force --grace-period=0
+Checking Pod Events
 
-9. **Delete Pod**
-    
-   ```sh
-   kubectl delete pod <pod_name>
-   ```
-   Deletes a specified pod.
+kubectl get events
+kubectl describe pod <pod-name>
+ConfigMap and Secret Management
+Creating ConfigMaps
 
-### Deployment Management
+kubectl create configmap <config-name> --from-literal=key=value
+kubectl create configmap <config-name> --from-file=<file-path>
+kubectl apply -f <configmap-file>.yaml
+Creating Secrets
 
-10. **List Deployments**
-    
-    ```sh
-    kubectl get deployments
-    ```
-    Lists all deployments in the default namespace.
+kubectl create secret generic <secret-name> --from-literal=username=<user> --from-literal=password=<pass>
+kubectl apply -f <secret-file>.yaml
+Viewing ConfigMaps and Secrets
 
-11. **Create Deployment**
-    
-    ```sh
-    kubectl create deployment <deployment_name> --image=<image_name>
-    ```
-    Creates a new deployment with the specified container image.
+kubectl get configmap
+kubectl get secret
+kubectl describe configmap <configmap-name>
+kubectl describe secret <secret-name>
+Troubleshooting
+Node and Resource Issues
 
-12. **Delete Deployment**
-    
-    ```sh
-    kubectl delete deployment <deployment_name>
-    ```
-    Deletes a specified deployment.
+kubectl get nodes
+kubectl describe node <node-name>
+kubectl top node
+kubectl top pod
+Resource Utilization
 
-### Service Management
+kubectl top pod -n <namespace>
+kubectl get hpa
+Troubleshooting Errors
 
-13. **List Services**
-    
-    ```sh
-    kubectl get services
-    ```
-    Lists all services in the default namespace.
+kubectl describe pod <pod-name>
+kubectl logs <pod-name>
+kubectl exec -it <pod-name> -- /bin/sh
+Networking
+Ingress and Service Management
 
-14. **Create Service**
-    
-    ```sh
-    kubectl expose deployment <deployment_name> --type=LoadBalancer --name=<service_name>
-    ```
-    Creates a new service to expose a deployment.
+kubectl get ingress
+kubectl get svc
+kubectl describe svc <service-name>
+Port Forwarding
 
-15. **Delete Service**
-    
-    ```sh
-    kubectl delete service <service_name>
-    ```
-    Deletes a specified service.
+kubectl port-forward <pod-name> <local-port>:<container-port>
+DNS Troubleshooting
 
-### ConfigMap and Secret Management
+kubectl exec -it <pod-name> -- nslookup <service-name>
+Helm Commands (Optional in DevOps Workflows)
+Helm Release Management
+helm install <release-name> <chart-name>
+helm upgrade <release-name> <chart-name>
+helm rollback <release-name>
+helm delete <release-name>
+Viewing Helm Releases
+helm list
+helm status <release-name>
+Kubernetes Resource Management
+Viewing and Editing Resources
 
-16. **Create ConfigMap**
-    
-    ```sh
-    kubectl create configmap <configmap_name> --from-literal=<key>=<value>
-    ```
-    Creates a new ConfigMap from literal values.
+kubectl get all
+kubectl edit deployment <deployment-name>
+kubectl describe service <service-name>
+Dry Run to Preview Changes
 
-17. **Create Secret**
-    
-    ```sh
-    kubectl create secret generic <secret_name> --from-literal=<key>=<value>
-    ```
-    Creates a new Secret from literal values.
+kubectl apply -f <file>.yaml --dry-run=client
+Deleting Resources
 
-### Logs and Debugging
+kubectl delete -f <file>.yaml
+kubectl delete pod,svc <name>
+Monitoring and Logging
+Enabling Resource Metrics
 
-18. **View Pod Logs**
-    
-    ```sh
-    kubectl logs <pod_name>
-    ```
-    Displays the logs of a specific pod.
+kubectl top pod
+kubectl top node
+Viewing Logs
 
-19. **Execute Command in Pod**
-    
-    ```sh
-    kubectl exec -it <pod_name> -- <command>
-    ```
-    Executes a command in a running pod.
-
-### Scaling and Rollouts
-
-20. **Scale Deployment**
-    
-    ```sh
-    kubectl scale deployment <deployment_name> --replicas=<number_of_replicas>
-    ```
-    Scales a deployment to the specified number of replicas.
-
-21. **Rollout Status**
-    
-    ```sh
-    kubectl rollout status deployment/<deployment_name>
-    ```
-    Displays the rollout status of a deployment.
-
-22. **Rollout Undo**
-    ```sh
-    kubectl rollout undo deployment/<deployment_name>
-    ```
-    Rolls back a deployment to a previous revision.
-
-These commands cover a wide range of tasks from managing namespaces, pods, and deployments to handling services, ConfigMaps, and Secrets.
+kubectl logs -f <pod-name>
+kubectl logs -f <pod-name> -c <container-name>
+Backup and Restore
+Backing up Resources
+kubectl get all -o yaml > backup.yaml
+Restoring Resources
+kubectl apply -f backup.yaml
+These commands are essential for managing Kubernetes clusters efficiently and are widely used by DevOps Engineers for various tasks. Let me know if you’d like examples or more explanations for any specific use case.
