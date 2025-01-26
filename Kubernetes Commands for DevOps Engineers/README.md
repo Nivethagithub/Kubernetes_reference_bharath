@@ -56,7 +56,7 @@ Essential Kubernetes Commands that DevOps Engineers commonly use in their day-to
    Displays detailed information about a specific pod.
 
 8. **Create Pod**
-9. 
+
    ```sh
    kubectl run <pod_name> --image=<image_name>
    ```
