@@ -77,3 +77,85 @@ If the pod is stuck in a ContainerCreating state, check for issues with init con
 kubectl describe pod <pod-name> | grep -A 5 "Init Containers"
 ```
 
+**9. Check for Volume Issues**
+
+If the pod uses persistent volumes, ensure that the volume is properly mounted and accessible:
+
+```bash
+kubectl describe pod <pod-name> | grep -A 10 "Volumes"
+```
+
+**10. Review Liveness and Readiness Probes**
+
+Check if liveness and readiness probes are misconfigured or causing pods to be killed or restarted:
+
+```bash
+kubectl describe pod <pod-name> | grep -A 5 "Liveness"
+kubectl describe pod <pod-name> | grep -A 5 "Readiness"
+```
+
+**11. Examine Deployment or StatefulSet Configuration**
+
+If using a Deployment or StatefulSet, review its configuration and make sure the pod spec matches expectations:
+
+```bash
+kubectl describe deployment <deployment-name>
+kubectl describe statefulset <statefulset-name>
+```
+
+**12. Check Pod Scheduling Issues**
+
+If a pod is stuck in Pending, it may be due to insufficient resources, affinity rules, or taints. Use the following to get scheduling details:
+
+```bash
+kubectl describe pod <pod-name> | grep -A 10 "Events"
+```
+
+**13. Inspect Horizontal Pod Autoscaling (HPA)**
+
+If your pod is part of a Horizontal Pod Autoscaler, check if autoscaling issues are affecting the pod:
+
+```bash
+kubectl get hpa
+kubectl describe hpa <hpa-name>
+```
+
+**14. Check for Misconfigured Environment Variables**
+
+Sometimes pods fail due to missing or incorrect environment variables. Check your pod’s environment configuration:
+
+```bash
+kubectl describe pod <pod-name> | grep -A 10 "Environment"
+```
+
+**15. Check for Configuration or Secret Issues**
+
+If the pod uses ConfigMaps or Secrets, ensure they are correctly applied and available:
+
+```bash
+kubectl describe configmap <configmap-name>
+kubectl describe secret <secret-name>
+```
+
+**16. Use Kubelet Logs**
+
+If there’s a node-related issue causing the pod to fail, check the kubelet logs on the node that is hosting the pod:
+
+```bash
+journalctl -u kubelet
+```
+**17. Verify Pod’s Health with kubectl top**
+
+Use the kubectl top command to check pod resource usage and identify resource starvation:
+
+```bash
+kubectl top pod <pod-name>
+```
+
+**18. Inspect Pod with Port-Forwarding for Debugging**
+
+Use port forwarding to interact with the pod's services for further debugging:
+
+```bash
+kubectl port-forward pod/<pod-name> <local-port>:<pod-port>
+```
