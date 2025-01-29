@@ -159,3 +159,52 @@ Use port forwarding to interact with the pod's services for further debugging:
 ```bash
 kubectl port-forward pod/<pod-name> <local-port>:<pod-port>
 ```
+
+**19.Verify Pod Configuration**
+
+Check the pod specification YAML file for any misconfigurations:
+
+```bash
+kubectl get pod <pod-name> -o yaml
+```
+
+Look for incorrect configurations in environment variables, volume mounts, ports, and resource requests.
+
+**20.Validate Container Images**
+
+Ensure the container image exists and is accessible:
+
+```bash
+kubectl describe pod <pod-name> | grep -i image
+```
+
+Check if the image is stored in a private registry and requires authentication.
+
+**21. Restart the Pod**
+
+If the pod is stuck or behaving unexpectedly, restart it deployment:
+
+```bash
+kubectl rollout restart deployment/<deployment_name>
+```
+
+The pod will be recreated if managed by a Deployment, ReplicaSet, or StatefulSet.
+
+**22.Review Service Dependencies**
+
+If the pod depends on other services, check if those services are running:
+
+```bash
+kubectl get services
+kubectl describe service <service-name>
+```
+
+If using an external database or API, ensure network access is allowed.
+
+**23.Inspect Resource Usage**
+
+Use kubectl top to check pod resource consumption:
+
+kubectl top pod <pod-name>
+
+By following these tactics, you can gather detailed information about what's causing issues with your Kubernetes pods and take appropriate actions to resolve them.
