@@ -205,6 +205,8 @@ If using an external database or API, ensure network access is allowed.
 
 Use kubectl top to check pod resource consumption:
 
+```bash
 kubectl top pod <pod-name>
+```
 
 By following these tactics, you can gather detailed information about what's causing issues with your Kubernetes pods and take appropriate actions to resolve them.
