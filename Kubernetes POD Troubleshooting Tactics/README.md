@@ -33,3 +33,12 @@ kubectl describe pod <pod-name>
 ```
 
 This will show you details like the pod's resource requests, limits, events, and reasons for state changes.
+
+**4. Check Resource Limits and Requests**
+
+Misconfigured resource limits can cause pods to be throttled, terminated, or not scheduled properly. Verify the pod's CPU and memory requests/limits:
+
+```bash
+kubectl describe pod <pod-name> | grep -A 5 "Limits"
+```
+
