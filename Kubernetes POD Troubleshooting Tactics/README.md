@@ -5,7 +5,7 @@ When troubleshooting Kubernetes Pods, it's essential to use various tactics to d
 Use the kubectl get pods command to check the status of your pods:
 
  ```bash
-    kubectl get pods
+    kubectl get pods <pod_name>
 ```
 
 If the pod is not running as expected, check if it is in a Pending, CrashLoopBackOff, or Error state.
