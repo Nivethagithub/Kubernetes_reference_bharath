@@ -42,3 +42,11 @@ Misconfigured resource limits can cause pods to be throttled, terminated, or not
 kubectl describe pod <pod-name> | grep -A 5 "Limits"
 ```
 
+**5. Check Node Status**
+
+Pods might fail to schedule if there aren’t enough resources or if the node is in a bad state. Check the status of your nodes:
+
+```bash
+kubectl get nodes
+```
+If nodes are in a NotReady state, check the node’s conditions or logs for more details.
