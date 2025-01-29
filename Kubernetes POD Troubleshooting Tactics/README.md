@@ -50,3 +50,29 @@ Pods might fail to schedule if there aren’t enough resources or if the node is
 kubectl get nodes
 ```
 If nodes are in a NotReady state, check the node’s conditions or logs for more details.
+
+**6. Check Pod Events**
+
+Events provide useful details about why a pod might not be running or restarting. Check events with:
+
+```bash
+kubectl get events --sort-by='.metadata.creationTimestamp'
+```
+
+**7. Verify Network Connectivity**
+
+Use kubectl exec to enter the pod and test network connectivity to other services or pods:
+
+```bash
+kubectl exec -it <pod-name> -- /bin/bash
+
+Once inside the pod, you can use tools like curl, ping, or nslookup to check network connections.
+
+**8. Check Pod's Init Containers**
+
+If the pod is stuck in a ContainerCreating state, check for issues with init containers. They must complete successfully before the main containers can start
+
+```bash
+kubectl describe pod <pod-name> | grep -A 5 "Init Containers"
+```
+
