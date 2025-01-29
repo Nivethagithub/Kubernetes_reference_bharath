@@ -65,6 +65,7 @@ Use kubectl exec to enter the pod and test network connectivity to other service
 
 ```bash
 kubectl exec -it <pod-name> -- /bin/bash
+```
 
 Once inside the pod, you can use tools like curl, ping, or nslookup to check network connections.
 
