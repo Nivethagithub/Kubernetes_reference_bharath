@@ -117,11 +117,13 @@ Kubernetes provides lifecycle hooks that let you manage and inject custom behavi
 **PostStart** Hook
 
 Triggered immediately after a container is created and started (but there’s no guarantee this hook will run before the container’s main process).
+
 Useful for initialization tasks that need to run inside the container once it’s up.
 
 **PreStop** Hook
 
 Triggered before the container is terminated.
+
 Used for graceful shutdown tasks, like flushing buffers, notifying external systems, or cleaning up resources.
 
 These hooks allow you to control logic that is needed to run at critical points in the container’s lifecycle without altering the main application code.
