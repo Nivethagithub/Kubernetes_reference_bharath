@@ -26,9 +26,9 @@ Pod phases are high-level summaries of the Pod’s overall status. They give a q
 
 The Pod object has been accepted by the Kubernetes cluster, but one or more of the following may still be happening:
 
-The Pod is waiting to be scheduled onto a node.
+   The Pod is waiting to be scheduled onto a node.
 
-Kubernetes is pulling the container image(s) onto the node.
+   Kubernetes is pulling the container image(s) onto the node.
 
 During this phase, the Pod is not yet running the application containers.
 
