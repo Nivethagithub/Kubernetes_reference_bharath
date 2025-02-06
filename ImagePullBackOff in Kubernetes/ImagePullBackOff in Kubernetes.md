@@ -4,17 +4,17 @@ ImagePullBackOff is a Kubernetes pod status that indicates the kubelet is unable
 
 **Common Causes of ImagePullBackOff**
 
-1. Incorrect Image Name or Tag: If the image name or tag is incorrect or doesn't exist in the registry.
+**1. Incorrect Image Name or Tag:** If the image name or tag is incorrect or doesn't exist in the registry.
 
-2. Private Image Repository without Authentication: If the image is in a private registry and credentials are not provided.
+**2. Private Image Repository without Authentication:** If the image is in a private registry and credentials are not provided.
 
-3. Docker Hub Rate Limit Exceeded: Docker Hub has rate limits for anonymous users.
+**3. Docker Hub Rate Limit Exceeded:** Docker Hub has rate limits for anonymous users.
 
-4. Registry Unreachable: If the container registry is down or not accessible due to network issues.
+**4. Registry Unreachable:** If the container registry is down or not accessible due to network issues.
 
-5. Incorrect Image Registry URL: The repository might be referenced incorrectly (e.g., docker.io/myimage vs. myimage).
+**5. Incorrect Image Registry URL:** The repository might be referenced incorrectly (e.g., docker.io/myimage vs. myimage).
 
-6. Kubernetes Node Has No Internet Access: If the node running the pod cannot connect to the container registry.
+**6. Kubernetes Node Has No Internet Access:** If the node running the pod cannot connect to the container registry.
 
 **How to Fix ImagePullBackOff**
 
