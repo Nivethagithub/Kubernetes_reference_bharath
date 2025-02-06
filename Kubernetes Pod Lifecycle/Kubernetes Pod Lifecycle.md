@@ -22,7 +22,7 @@ Because Pods are considered ephemeral in Kubernetes, they can be created, termin
 
 Pod phases are high-level summaries of the Pod’s overall status. They give a quick idea of what is happening to the Pod, but they are not a detailed or granular representation of container-level statuses. The primary Pod phases are:
 
-**1. Pending
+**1. Pending**
 
 The Pod object has been accepted by the Kubernetes cluster, but one or more of the following may still be happening:
 
