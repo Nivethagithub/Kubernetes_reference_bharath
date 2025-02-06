@@ -16,6 +16,8 @@ ImagePullBackOff is a Kubernetes pod status that indicates the kubelet is unable
 
 **6. Kubernetes Node Has No Internet Access:** If the node running the pod cannot connect to the container registry.
 
+---
+
 **How to Fix ImagePullBackOff**
 
 **1. Check Pod Status**
