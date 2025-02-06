@@ -64,7 +64,7 @@ If a liveness probe is set too aggressively, the container may be restarted whil
 
 To identify a CrashLoopBackOff issue:
 
-1. Pod Status: Check the Pod status with:
+**1. Pod Status:** Check the Pod status with:
 
 ```bash
 kubectl get pods
