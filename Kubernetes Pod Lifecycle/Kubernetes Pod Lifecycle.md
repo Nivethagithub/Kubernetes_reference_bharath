@@ -60,7 +60,7 @@ This phase sometimes appears due to transient issues in cluster communication.
 
 ---
 
-3. Container States Within a Pod
+**3. Container States Within a Pod**
 
 Within a Pod, each container has more detailed states than the overall Pod phase. These are:
 
