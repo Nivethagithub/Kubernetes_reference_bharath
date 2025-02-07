@@ -23,13 +23,14 @@ spec:
 
 **3. metadata**: Contains data that helps uniquely identify the object, including:
 
-     **name:** The name of the Pod.
+  **name:** The name of the Pod.
      
-     **namespace**: (Optional) The namespace for the Pod. If omitted, the default namespace is used.
+  **namespace**: (Optional) The namespace for the Pod. If omitted, the default namespace is used.
      
-     **labels**: Key-value pairs used for organization and selection.
+  **labels**: Key-value pairs used for organization and selection.
      
-     **annotations**: Key-value metadata used by tools or libraries.
+  **annotations**: Key-value metadata used by tools or libraries.
+  
 **4. spec**: Defines the desired state of the Pod—primarily, the containers that will run inside the Pod, plus other configuration like volumes and networking.
 
 Let’s break down an example in detail:
