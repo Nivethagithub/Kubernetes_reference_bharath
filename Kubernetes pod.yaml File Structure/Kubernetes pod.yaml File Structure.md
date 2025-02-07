@@ -73,7 +73,7 @@ spec:
   dnsPolicy: ClusterFirst
 ```
 
-We’ll dissect the metadata and spec sections in more detail.
+We’ll dissect the **metadata** and **spec** sections in more detail.
 
 ---
 
