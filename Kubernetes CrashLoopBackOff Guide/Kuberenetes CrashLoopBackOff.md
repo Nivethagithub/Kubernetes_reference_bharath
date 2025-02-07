@@ -263,7 +263,7 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 
 This shows all events, including failures.
 
-4. Check Pod Status in Detail
+**4. Check Pod Status in Detail**
 
 ```bash
 kubectl get pod crashloop-pod -o yaml
