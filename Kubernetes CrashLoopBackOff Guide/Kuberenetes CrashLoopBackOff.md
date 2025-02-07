@@ -170,15 +170,210 @@ If your application is dependent on external services, consider implementing ret
 
 Imagine you have a container that starts up and tries to connect to a Postgres database. If the database credentials are incorrect or the database service is unreachable, your application may log something like “Database connection refused” and exit with an error. Kubernetes sees this exit and restarts the container. If that error persists, Kubernetes repeatedly restarts the container, eventually settling on the CrashLoopBackOff state.
 
-**How to debug:**
+**How to Debug CrashLoopBackOff? (Hands-on Example)**
 
-1. kubectl logs <pod>: see the “Database connection refused” message.
+Let's go through an **example scenario** where we deploy a faulty pod, analyze the issue, and fix it.
 
-2. kubectl describe pod <pod>: see repeated restarts (ExitCode: 1).
+---
 
-3. Fix the environment variable or config for the DB connection.
-   
-4. Re-deploy to confirm the container successfully starts.
+**Step 1: Deploy a Faulty Pod**
+
+Create a YAML file (faulty-pod.yaml) with an intentional error.
+
+```bash
+apiVersion: v1
+kind: Pod
+metadata:
+  name: crashloop-pod
+spec:
+  containers:
+  - name: faulty-container
+    image: busybox
+    command: ["sh", "-c", "exit 1"]
+    restartPolicy: Always
+```
+Here, the pod will **exit with status 1** immediately, causing it to crash.
+
+Apply it:
+
+```bash
+kubectl apply -f faulty-pod.yaml
+```
+
+Check the pod status:
+
+```bash
+kubectl get pods
+```
+
+You should see:
+
+```bash
+NAME            READY   STATUS             RESTARTS   AGE
+crashloop-pod   0/1     CrashLoopBackOff   3          1m
+```
+
+---
+
+**Step 2: Debug the Issue**
+
+**1. Describe the Pod**
+
+```bash
+kubectl describe pod crashloop-pod
+```
+
+Look for messages under Events: that indicate why the pod is restarting.
+
+Example output:
+
+```bash
+Warning  BackOff    1m (x6 over 2m)  kubelet  Back-off restarting failed container
+```
+
+This confirms that the container is crashing.
+
+**2. Check Logs**
+
+Since the container starts and crashes immediately, check logs before it disappears.
+
+```bash
+kubectl logs crashloop-pod
+```
+
+If the pod has multiple containers, specify the container name:
+
+```bash
+kubectl logs crashloop-pod -c faulty-container
+```
+
+Expected output:
+
+```bash
+sh: exit: I/O error
+```
+
+This confirms that the application exits with an error.
+
+**3. Check Kubernetes Events**
+
+```bash
+kubectl get events --sort-by=.metadata.creationTimestamp
+```
+
+This shows all events, including failures.
+
+4. Check Pod Status in Detail
+
+```bash
+kubectl get pod crashloop-pod -o yaml
+```
+
+Look at:
+
+status.phase: Indicates if the pod is Pending, Running, or CrashLoopBackOff.
+
+status.containerStatuses.state.terminated.reason: Indicates the cause (Error or Completed).
+
+---
+
+**Step 3: Fix the Issue**
+
+**1. Modify the Startup Command**
+
+The pod is crashing due to exit 1. Let's change the command to prevent it from failing.
+
+Edit the YAML file:
+
+```bash
+apiVersion: v1
+kind: Pod
+metadata:
+  name: crashloop-pod
+spec:
+  containers:
+  - name: fixed-container
+    image: busybox
+    command: ["sh", "-c", "sleep 3600"]
+    restartPolicy: Always
+```
+
+This keeps the container running for 1 hour instead of crashing.
+
+Apply the fix:
+
+```bash
+kubectl apply -f faulty-pod.yaml
+```
+
+Check if the pod is now running:
+
+```bash
+kubectl get pods
+```
+
+You should see:
+
+```bash
+NAME            READY   STATUS    RESTARTS   AGE
+crashloop-pod   1/1     Running   0          1m
+```
+---
+
+**Other Common Causes & Fixes**
+
+**1. Failed Liveness Probe**
+
+If a liveness probe is misconfigured, the pod can keep restarting.
+
+Example issue:
+
+```bash
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 3
+  periodSeconds: 5
+```
+
+Fix: Adjust the initialDelaySeconds to give the application more time to start.
+
+**2. Insufficient Resources**
+
+Pods can crash due to resource limits.
+
+Check resource allocation:
+
+```bash
+kubectl describe pod <pod-name>
+```
+
+If the issue is OOMKilled, increase memory limits.
+
+```bash
+resources:
+  requests:
+    memory: "256Mi"
+  limits:
+    memory: "512Mi"
+```
+
+**3. Wrong Image or Missing Dependencies**
+
+If the container image is incorrect or missing dependencies, update the image.
+
+Check the image:
+
+```bash
+kubectl describe pod crashloop-pod | grep -i image
+```
+
+If incorrect, update the deployment:
+
+```bash
+kubectl set image deployment my-deployment my-container=new-image:latest
+```
 
 **Summary**
 
