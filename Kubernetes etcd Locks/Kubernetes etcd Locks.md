@@ -129,15 +129,15 @@ Kubernetes uses Lease API to implement leader election. Controllers register a l
 
 **Best Practices for etcd Locking in Kubernetes**
 
-Use short TTLs for leases – This ensures that locks do not persist indefinitely if a process crashes.
+1. **Use short TTLs for leases** – This ensures that locks do not persist indefinitely if a process crashes.
 
-Always revoke leases after operations – Prevents stale locks.
+2. **Always revoke leases** after operations – Prevents stale locks.
 
-Use transactions for atomic updates – Avoid partial updates by using etcdctl txn.
+3. **Use transactions for atomic updates** – Avoid partial updates by using etcdctl txn.
 
-Avoid excessive locking – Overuse of etcd locks can introduce latency.
+4. **Avoid excessive locking** – Overuse of etcd locks can introduce latency.
 
-Monitor etcd performance – Frequent locking operations can impact etcd's performance.
+5. **Monitor etcd performance** – Frequent locking operations can impact etcd's performance.
 
 ---
 
