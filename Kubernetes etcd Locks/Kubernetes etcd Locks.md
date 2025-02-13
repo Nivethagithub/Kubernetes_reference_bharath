@@ -355,6 +355,8 @@ Apply the deployment:
 kubectl apply -f controller-deployment.yaml
 ```
 
+---
+
 6. **Testing the Lock**
 
 **Step 1: Verify Controller Logs**
