@@ -144,3 +144,261 @@ Kubernetes uses Lease API to implement leader election. Controllers register a l
 **Conclusion**
 
 etcd locking is an essential mechanism in Kubernetes for **leader election, resource consistency, and distributed coordination**. It ensures that only one process modifies a resource at a time, preventing race conditions and ensuring data integrity. Kubernetes uses etcd locks internally for various components like controllers, schedulers, and operators, making it a critical part of the cluster's operation.
+
+**How to Implement etcd Locking in a Kubernetes Controller**
+
+In this example, we will implement a **Kubernetes controller** that uses **etcd locking** to ensure that only one instance of the controller processes a resource at a time.
+
+---
+
+1. **Prerequisites**
+
+   - A **Kubernetes cluster** with kubectl access.
+
+   - An **etcd cluster** or access to Kubernetes' built-in etcd.
+     
+   - A Go environment for writing the controller.
+   
+2. **Install etcdctl**
+
+To interact with etcd manually, install etcdctl:
+
+```bash
+apt install etcd-client  # On Debian/Ubuntu
+brew install etcd         # On macOS
+```
+
+Check the connection:
+
+```bash
+ETCDCTL_API=3 etcdctl endpoint health
+```
+
+---
+
+3. **Implementing etcd Locking in a Kubernetes Controller**
+
+This example uses **client-go** to implement a simple controller that locks before processing Kubernetes ConfigMaps.
+
+**Step 1: Create a Kubernetes Controller in Go**
+
+The controller watches for ConfigMap changes and uses etcd locks to ensure only one instance processes the changes.
+
+```bash
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+	"time"
+
+	"go.etcd.io/etcd/client/v3"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/rest"
+)
+
+const (
+	lockKey = "/k8s/lock/controller"
+	leaseTTL = 10 // Lease time-to-live in seconds
+)
+
+func main() {
+	// Connect to Kubernetes
+	config, err := rest.InClusterConfig()
+	if err != nil {
+		log.Fatalf("Failed to create Kubernetes config: %v", err)
+	}
+	clientset, err := kubernetes.NewForConfig(config)
+	if err != nil {
+		log.Fatalf("Failed to create Kubernetes client: %v", err)
+	}
+
+	// Connect to etcd
+	etcdClient, err := clientv3.New(clientv3.Config{
+		Endpoints:   []string{"https://etcd-cluster-ip:2379"},
+		DialTimeout: 5 * time.Second,
+	})
+	if err != nil {
+		log.Fatalf("Failed to connect to etcd: %v", err)
+	}
+	defer etcdClient.Close()
+
+	// Create a lease for locking
+	lease, err := etcdClient.Grant(context.Background(), leaseTTL)
+	if err != nil {
+		log.Fatalf("Failed to create lease: %v", err)
+	}
+
+	// Try to acquire the lock
+	txn := etcdClient.Txn(context.Background()).
+		If(clientv3.Compare(clientv3.CreateRevision(lockKey), "=", 0)).
+		Then(clientv3.OpPut(lockKey, "locked", clientv3.WithLease(lease.ID))).
+		Else(clientv3.OpGet(lockKey))
+
+	txnResp, err := txn.Commit()
+	if err != nil {
+		log.Fatalf("Failed to execute transaction: %v", err)
+	}
+
+	if !txnResp.Succeeded {
+		log.Println("Lock is already acquired by another instance. Exiting...")
+		return
+	}
+
+	log.Println("Lock acquired. Processing ConfigMaps...")
+
+	// Fetch and process ConfigMaps
+	configMaps, err := clientset.CoreV1().ConfigMaps("default").List(context.TODO(), metav1.ListOptions{})
+	if err != nil {
+		log.Fatalf("Failed to list ConfigMaps: %v", err)
+	}
+
+	for _, cm := range configMaps.Items {
+		fmt.Printf("Processing ConfigMap: %s\n", cm.Name)
+		time.Sleep(2 * time.Second) // Simulating processing time
+	}
+
+	// Release the lock by revoking the lease
+	_, err = etcdClient.Revoke(context.Background(), lease.ID)
+	if err != nil {
+		log.Fatalf("Failed to release lock: %v", err)
+	}
+
+	log.Println("Lock released. Exiting...")
+}
+```
+
+4. **Explanation of Code**
+
+1. **Connect to Kubernetes**
+
+   - Uses client-go to access Kubernetes.
+     
+   - Lists ConfigMaps in the default namespace.
+   
+2. **Connect to etcd**
+
+   - Connects to etcd using the Go etcd client.
+   
+   - Specifies etcd endpoints for connection.
+
+3. **Implement Locking Mechanism**
+
+   - Creates a lease in etcd (expires in 10 seconds).
+
+   - Uses a transaction (txn):
+
+     - If the lock (/k8s/lock/controller) does not exist, it is created.
+       
+     - If it already exists, another controller has the lock, so the process exits.
+   
+4. **Process ConfigMaps**
+
+   - If the lock is acquired, the controller fetches and processes ConfigMaps.
+
+   - A 2-second delay simulates processing.
+
+5. Release the Lock
+
+   - Revokes the lease after processing, releasing the lock.
+---
+
+5. **Deploying the Controller in Kubernetes**
+
+**Step 1: Create a Docker Image**
+
+Build and push the controller:
+
+```bash
+docker build -t my-controller:latest .
+docker tag my-controller:latest <your-dockerhub-username>/my-controller
+docker push <your-dockerhub-username>/my-controller
+```
+
+**Step 2: Deploy as a Kubernetes Deployment**
+
+Create a Deployment YAML file:
+
+```bash
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: etcd-locking-controller
+spec:
+  replicas: 2  # Two replicas, but only one should acquire the lock
+  selector:
+    matchLabels:
+      app: etcd-locking-controller
+  template:
+    metadata:
+      labels:
+        app: etcd-locking-controller
+    spec:
+      containers:
+      - name: controller
+        image: <your-dockerhub-username>/my-controller
+        env:
+        - name: ETCD_ENDPOINT
+          value: "https://etcd-cluster-ip:2379"
+```
+
+Apply the deployment:
+
+```bash
+kubectl apply -f controller-deployment.yaml
+```
+
+6. **Testing the Lock**
+
+**Step 1: Verify Controller Logs**
+
+Get pod names:
+
+```bash
+kubectl get pods -l app=etcd-locking-controller
+```
+
+Check logs for each pod:
+
+```bash
+kubectl logs <pod-name>
+```
+
+One pod should show:
+
+```bash
+Lock acquired. Processing ConfigMaps...
+```
+
+The other should show:
+```bash
+Lock is already acquired by another instance. Exiting...
+```
+
+**Step 2: Simulate Failure**
+
+Delete the active pod:
+
+```bash
+kubectl delete pod <active-pod-name>
+```
+
+   - The other pod should take over and acquire the lock.
+
+---
+
+**7. When & Where to Use This?**
+
+✅ **Leader Election** – Ensuring only one controller instance runs at a time.
+
+✅ **Avoiding Race Conditions** – Multiple controllers should not process the same resource.
+
+✅ **Ensuring Transactional Consistency** – When updating multiple Kubernetes resources.
+
+---
+
+8. **Conclusion**
+
+This example shows how to use etcd locking in a Kubernetes controller to ensure that only one instance processes resources at a time. It prevents race conditions and ensures distributed coordination.
