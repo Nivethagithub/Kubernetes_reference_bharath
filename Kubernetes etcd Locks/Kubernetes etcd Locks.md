@@ -124,7 +124,9 @@ Kubernetes uses Lease API to implement leader election. Controllers register a l
 
    - Example: A Kubernetes admission controller can use etcd locks to ensure that multiple requests to modify an object do
      not cause conflicts.
-     
+
+---
+
 **Best Practices for etcd Locking in Kubernetes**
 
 Use short TTLs for leases – This ensures that locks do not persist indefinitely if a process crashes.
