@@ -105,6 +105,8 @@ If the lease expires, etcd automatically removes the lock.
 
 ---
 
+**etcd Locking in Kubernetes Components**
+
 **1. Kubernetes Leader Election Using etcd**
 
 Kubernetes uses Lease API to implement leader election. Controllers register a lease in etcd, and the instance with the lease is considered the leader.
