@@ -143,4 +143,4 @@ Kubernetes uses Lease API to implement leader election. Controllers register a l
 
 **Conclusion**
 
-etcd locking is an essential mechanism in Kubernetes for leader election, resource consistency, and distributed coordination. It ensures that only one process modifies a resource at a time, preventing race conditions and ensuring data integrity. Kubernetes uses etcd locks internally for various components like controllers, schedulers, and operators, making it a critical part of the cluster's operation.
+etcd locking is an essential mechanism in Kubernetes for **leader election, resource consistency, and distributed coordination**. It ensures that only one process modifies a resource at a time, preventing race conditions and ensuring data integrity. Kubernetes uses etcd locks internally for various components like controllers, schedulers, and operators, making it a critical part of the cluster's operation.
