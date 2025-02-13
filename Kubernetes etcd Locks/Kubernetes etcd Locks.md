@@ -276,7 +276,7 @@ func main() {
 
 4. **Explanation of Code**
 
-1. **Connect to Kubernetes**
+   1. **Connect to Kubernetes**
 
    - Uses client-go to access Kubernetes.
      
