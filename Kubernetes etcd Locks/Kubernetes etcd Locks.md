@@ -103,6 +103,8 @@ If the lease expires, etcd automatically removes the lock.
    - When running distributed workflows (e.g., batch jobs), etcd locking ensures that a job is not executed multiple times
      accidentally.
 
+---
+
 **1. Kubernetes Leader Election Using etcd**
 
 Kubernetes uses Lease API to implement leader election. Controllers register a lease in etcd, and the instance with the lease is considered the leader.
