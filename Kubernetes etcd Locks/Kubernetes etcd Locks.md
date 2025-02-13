@@ -272,6 +272,8 @@ func main() {
 }
 ```
 
+---
+
 4. **Explanation of Code**
 
 1. **Connect to Kubernetes**
