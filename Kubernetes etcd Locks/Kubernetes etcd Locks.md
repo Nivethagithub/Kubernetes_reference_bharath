@@ -276,19 +276,19 @@ func main() {
 
 4. **Explanation of Code**
 
-   1. **Connect to Kubernetes**
+**Connect to Kubernetes**
 
    - Uses client-go to access Kubernetes.
      
    - Lists ConfigMaps in the default namespace.
    
-2. **Connect to etcd**
+**Connect to etcd**
 
    - Connects to etcd using the Go etcd client.
    
    - Specifies etcd endpoints for connection.
 
-3. **Implement Locking Mechanism**
+**Implement Locking Mechanism**
 
    - Creates a lease in etcd (expires in 10 seconds).
 
@@ -298,15 +298,16 @@ func main() {
        
      - If it already exists, another controller has the lock, so the process exits.
    
-4. **Process ConfigMaps**
+**Process ConfigMaps**
 
    - If the lock is acquired, the controller fetches and processes ConfigMaps.
 
    - A 2-second delay simulates processing.
 
-5. Release the Lock
+**Release the Lock**
 
    - Revokes the lease after processing, releasing the lock.
+
 ---
 
 5. **Deploying the Controller in Kubernetes**
