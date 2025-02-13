@@ -158,7 +158,9 @@ In this example, we will implement a **Kubernetes controller** that uses **etcd 
    - An **etcd cluster** or access to Kubernetes' built-in etcd.
      
    - A **Go environment** for writing the controller.
-   
+
+---
+
 2. **Install etcdctl**
 
 To interact with etcd manually, install etcdctl:
