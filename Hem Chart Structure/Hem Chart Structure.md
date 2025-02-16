@@ -13,9 +13,7 @@ Helm is a package manager for Kubernetes that simplifies deployment and manageme
 ├── README.md ______________________________________ Documentation and usage instructions
 ├── values.yaml ____________________________________ Default config values for customizing templates
 ├── values.schema.json ____________________________ JSON schema for validating values.yaml input
-│
 ├── charts/ ________________________________________ Holds chart dependencies
-│
 ├── templates/ _____________________________________ Kubernetes resource templates using Go
 │   ├── deployment.yaml ____________________________ Deployment resource template
 │   ├── service.yaml _______________________________ Service resource template
