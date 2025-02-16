@@ -7,7 +7,7 @@ Helm is a package manager for Kubernetes that simplifies deployment and manageme
 **Helm Chart Directory Structure**
 
 ```bash
-<helm_chart_name>/ _________________________________  Helm chart root directory
+<examplehelmchart>/ _________________________________  Helm chart root directory
 ├── chart.yaml ______________________________________ Chart metadata (name, version, description)
 ├── LICENSE ________________________________________ License information for the chart
 ├── README.md ______________________________________ Documentation and usage instructions
@@ -56,7 +56,7 @@ o	Maintainers, dependencies, etc.
 
 ```bash
 apiVersion: v2
-name: techopsexampleschart
+name: examplehelmchart
 description: A Helm chart for deploying a sample application
 type: application
 version: 1.0.0
