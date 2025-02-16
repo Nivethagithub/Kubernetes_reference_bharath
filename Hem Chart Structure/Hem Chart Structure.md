@@ -395,4 +395,3 @@ To rollback to a previous version:
 helm rollback my-nginx 1
 ```
 
-
