@@ -243,7 +243,7 @@ kubectl port-forward svc/{{ .Chart.Name }} 8080:80
 
 This Helm chart structure allows DevOps engineers to manage Kubernetes applications efficiently, ensuring scalability, consistency, and maintainability.
 
-Here’s a **real-world Helm deployment** example to help you with practical usage.
+Here is a **real-world Helm deployment** example to help you with practical usage.
 
 ---
 
