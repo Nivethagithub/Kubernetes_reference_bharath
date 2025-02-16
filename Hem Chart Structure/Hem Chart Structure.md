@@ -26,7 +26,7 @@
 
 **Helm Chart Directory Structure**
 
-**1. example_chart/ (Helm Chart Root Directory)**
+**1. examplehelmchart/ (Helm Chart Root Directory)**
 
 •	This is the root directory of the Helm chart.
 
