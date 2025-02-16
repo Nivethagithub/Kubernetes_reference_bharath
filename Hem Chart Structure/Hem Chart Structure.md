@@ -404,10 +404,15 @@ In this guide, we explored **Helm chart structure** and a **real-world Helm depl
 •	**Helm Chart Structure**: A Helm chart consists of essential components like:
 
 o	chart.yaml (metadata defining name, version, and dependencies)
+
 o	values.yaml (default configuration values)
+
 o	values.schema.json (validates input values)
+
 o	templates/ (Kubernetes resource definitions using Helm templating)
+
 o	charts/ (stores chart dependencies)
+
 o	_helpers.tpl (reusable functions for template consistency)
 
 •	**Real-World Deployment Example**: We created a Helm chart for an Nginx web server with:
