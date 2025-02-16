@@ -394,4 +394,3 @@ To rollback to a previous version:
 ```bash
 helm rollback my-nginx 1
 ```
-
