@@ -242,3 +242,157 @@ kubectl port-forward svc/{{ .Chart.Name }} 8080:80
 **8.	Post Installation Notes** (NOTES.txt) – Instructions displayed after deployment.
 
 This Helm chart structure allows DevOps engineers to manage Kubernetes applications efficiently, ensuring scalability, consistency, and maintainability.
+
+Here’s a **real-world Helm deployment** example to help you with practical usage.
+
+---
+
+**Real-World Helm Deployment Example**
+
+**Scenario: Deploying an Nginx Web Server Using Helm**
+
+We will create a Helm chart to deploy an **Nginx web server** with:
+
+•	A **Deployment** with 2 replicas
+
+•	A **Service** of type LoadBalancer
+
+•	Configurable parameters using values.yaml
+
+**Step 1: Create a New Helm Chart**
+
+```bash
+helm create nginx-chart
+cd nginx-chart
+```
+
+This command creates a Helm chart named nginx-chart with the required structure.
+
+---
+
+**Step 2: Modify values.yaml for Customization**
+
+Edit nginx-chart/values.yaml:
+
+```bash
+replicaCount: 2
+
+image:
+  repository: nginx
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 80
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+```
+
+This defines **2 replicas, an Nginx image, and a LoadBalancer service.**
+
+---
+
+**Step 3: Modify** the deployment.yaml Template
+
+Edit nginx-chart/templates/deployment.yaml:
+
+```bash
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 80
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+```
+
+This dynamically sets **replica count, image, ports, and resources.**
+
+---
+
+**Step 4: Modify the** service.yaml Template
+
+Edit nginx-chart/templates/service.yaml:
+
+```bash
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Name }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 80
+  selector:
+    app: {{ .Chart.Name }}
+```
+
+This ensures the **Service exposes the deployment.**
+
+---
+
+**Step 5: Install the Helm Chart**
+
+Run the following command to install the chart:
+
+```bash
+helm install my-nginx nginx-chart
+```
+
+This deploys the application with the provided values.
+
+---
+
+**Step 6: Verify the Deployment**
+
+Check if the pods are running:
+
+```bash
+kubectl get pods
+```
+
+Check if the service is created:
+
+```bash
+kubectl get svc
+```
+
+---
+
+**Step 7: Upgrade and Rollback**
+
+If you update values.yaml and want to apply changes:
+
+```bash
+helm upgrade my-nginx nginx-chart
+```
+
+To rollback to a previous version:
+
+```bash
+helm rollback my-nginx 1
+```
+
+---
