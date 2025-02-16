@@ -24,6 +24,8 @@ Helm is a package manager for Kubernetes that simplifies deployment and manageme
 │   ├── NOTES.txt __________________________________ Instructions displayed after chart installation
 ```
 
+---
+
 **Helm Chart Directory Structure**
 
 **1. example_chart/ (Helm Chart Root Directory)**
