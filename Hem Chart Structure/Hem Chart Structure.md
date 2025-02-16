@@ -418,8 +418,11 @@ o	_helpers.tpl (reusable functions for template consistency)
 •	**Real-World Deployment Example**: We created a Helm chart for an Nginx web server with:
 
 o	**Deployment**: Managed through a dynamic deployment.yaml template.
+
 o	**Service**: Configured as a LoadBalancer using service.yaml.
+
 o	**Customization**: Values were parameterized via values.yaml for flexibility.
+
 o	**Installation & Management**: The chart was installed, upgraded, and rolled back seamlessly using Helm.
 
 **Final Thoughts**
