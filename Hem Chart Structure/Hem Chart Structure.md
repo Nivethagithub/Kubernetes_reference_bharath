@@ -1,6 +1,6 @@
 **Helm Chart Structure**
 
-**Helm** is a **package manager** for Kubernetes that simplifies deployment and management of applications. A Helm chart is a collection of files that define a related set of Kubernetes resources.
+**Helm** is a **package manager** for Kubernetes that simplifies deployment and management of applications. A **Helm chart** is a collection of files that define a related set of Kubernetes resources.
 
 ---
 
