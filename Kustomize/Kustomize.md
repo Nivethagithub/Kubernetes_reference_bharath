@@ -293,4 +293,4 @@ kubectl apply -k overlays/prod  # Deploys to Prod
 
 **8. Conclusion**
 
-Kustomize is a powerful Kubernetes-native tool for managing multiple environments efficiently. It helps DevOps engineers keep Kubernetes manifests clean, modular, and reusable.
+Kustomize is a powerful Kubernetes-native tool for **managing multiple environments** efficiently. It helps DevOps engineers keep Kubernetes manifests clean, modular, and reusable.
