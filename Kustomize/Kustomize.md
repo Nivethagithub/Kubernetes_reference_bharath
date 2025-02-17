@@ -12,7 +12,7 @@ Kustomize is a **template-free** way to customize Kubernetes manifests. Unlike H
 
 •	**Declarative management**: Uses kustomization.yaml files.
 
-•	**Base and Overlay**: Defines a base configuration and modifies it using overlays.
+•	**Base and Overlay**: Defines a **base configuration** and modifies it using **overlays**.
 
 •	**Reusability**: Keeps YAML files DRY (Don’t Repeat Yourself).
 
