@@ -200,86 +200,7 @@ kubectl apply -k .
 
 ---
 
-**6. Real-World Example**
-
-Consider a microservices-based e-commerce application deployed in **Dev, Staging, and Prod** environments.
-
-**Base Deployment** (base/deployment.yaml)
-
-```bash
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: payment-service
-spec:
-  replicas: 2
-  template:
-    metadata:
-      labels:
-        app: payment-service
-    spec:
-      containers:
-      - name: payment-service
-        image: payment-service:latest
-        envFrom:
-        - configMapRef:
-            name: payment-config
-        - secretRef:
-            name: payment-secrets
-```
-
-**Dev Overlay** (overlays/dev/kustomization.yaml)
-
-```bash
-resources:
-- ../../base
-
-patches:
-- path: patch-deployment.yaml
-
-configMapGenerator:
-- name: payment-config
-  literals:
-    - ENV=development
-    - LOG_LEVEL=debug
-
-secretGenerator:
-- name: payment-secrets
-  literals:
-    - DB_PASSWORD=devpassword
-```
-
-**Prod Overlay** (overlays/prod/kustomization.yaml)
-
-```bash
-resources:
-- ../../base
-
-patches:
-- path: patch-deployment.yaml
-
-configMapGenerator:
-- name: payment-config
-  literals:
-    - ENV=production
-    - LOG_LEVEL=info
-
-secretGenerator:
-- name: payment-secrets
-  literals:
-    - DB_PASSWORD=prodpassword
-```
-
-**Applying Environments**
-
-```bash
-kubectl apply -k overlays/dev   # Deploys to Dev
-kubectl apply -k overlays/prod  # Deploys to Prod
-```
-
----
-
-**7. Advantages of Kustomize**
+**6. Advantages of Kustomize**
 
 ✅ **No need for Helm** – Works natively with Kubernetes.
 
@@ -291,6 +212,6 @@ kubectl apply -k overlays/prod  # Deploys to Prod
 
 ---
 
-**8. Conclusion**
+**7. Conclusion**
 
 Kustomize is a powerful Kubernetes-native tool for **managing multiple environments** efficiently. It helps DevOps engineers keep Kubernetes manifests clean, modular, and reusable.
