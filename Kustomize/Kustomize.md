@@ -509,7 +509,7 @@ spec:
 kubectl apply -k overlays/dev
 ```
 
-Apply Prod Environment
+**Apply Prod Environment**
 
 ```bash
 kubectl apply -k overlays/prod
