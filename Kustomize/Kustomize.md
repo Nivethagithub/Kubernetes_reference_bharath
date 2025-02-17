@@ -553,13 +553,9 @@ Then, add the following to /etc/hosts:
 
 Access:
 
-•	Payment Service: 
-
-  http://ecommerce.local/payment
+•	Payment Service: http://ecommerce.local/payment
   
-•	Order Service: 
-
-  http://ecommerce.local/order
+•	Order Service: http://ecommerce.local/order
 
 ---
 
