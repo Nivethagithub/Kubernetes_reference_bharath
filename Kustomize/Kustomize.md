@@ -561,11 +561,11 @@ Access:
 
 **Summary**
 
-✅ Used Kustomize to manage microservices-based deployments
+✅ Used Kustomize to manage **microservices-based deployments**
 
-✅ Configured Dev and Prod environments separately
+✅ Configured **Dev and Prod environments separately**
 
-✅ Managed secrets and ConfigMaps dynamically
+✅ Managed **secrets and ConfigMaps dynamically**
 
-✅ Integrated Ingress for service routing
+✅ Integrated **Ingress for service routing**
 
