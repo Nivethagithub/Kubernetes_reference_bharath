@@ -212,11 +212,11 @@ kubectl apply -k .
 
 ---
 
-**7. Conclusion**
+**Conclusion**
 
 Kustomize is a powerful Kubernetes-native tool for **managing multiple environments** efficiently. It helps DevOps engineers keep Kubernetes manifests clean, modular, and reusable.
 
-**Hands-on Guide: Deploying a Microservices-Based E-Commerce Application using Kustomize**
+**7. Hands-on Guide: Deploying a Microservices-Based E-Commerce Application using Kustomize**
 
 In this guide, we will deploy a **microservices-based e-commerce application** using **Kustomize** in Kubernetes. The project will include:
 
