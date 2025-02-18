@@ -351,7 +351,7 @@ CMD ["node", "server.js"]
 
 ---
 
-Step 3: Write Kubernetes Manifests
+**Step 3: Write Kubernetes Manifests**
 
 **Deployment & Service for Node.js App**
 
