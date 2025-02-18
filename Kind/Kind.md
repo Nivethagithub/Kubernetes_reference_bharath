@@ -396,7 +396,7 @@ spec:
   type: ClusterIP
 ```
 
-MongoDB Deployment & Service
+**MongoDB Deployment & Service**
 
 ```bash
 Create mongo-deployment.yaml:
