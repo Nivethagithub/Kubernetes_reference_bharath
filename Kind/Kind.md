@@ -132,6 +132,7 @@ kind create cluster --name my-cluster
 ```
 
 This will:
+
 •	Pull the latest Kubernetes image.
 
 •	Create a single-node Kubernetes cluster.
