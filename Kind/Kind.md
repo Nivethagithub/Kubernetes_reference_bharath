@@ -251,3 +251,301 @@ If you need **fast, lightweight, and CI/CD-friendly Kubernetes clusters**, Kind 
 •	**Lacks LoadBalancer support**, but Ingress controllers can be used.
 
 •	**Perfect for CI/CD pipelines**, GitHub Actions, GitLab CI/CD, or Jenkins.
+
+**Real-World DevOps Project Using Kind (Kubernetes in Docker)**
+
+This hands-on project will **deploy a microservice-based application** on a **multi-node Kubernetes cluster** using **Kind, Docker, and GitLab CI/CD.**
+
+---
+
+**Project Overview**
+
+**Objective**
+
+Deploy a **Node.js + MongoDB microservice application on a Kind Kubernetes cluster** with the following:
+
+•	**Dockerized application** (Node.js backend + MongoDB database)
+
+•	**Helm chart for deployment**
+
+•	**GitLab CI/CD pipeline** to automate deployment
+
+**Tools Used**
+
+•	**Kind** (For Kubernetes Cluster)
+
+•	**Docker** (For containerization)
+
+•	**Helm** (For Kubernetes deployment)
+
+•	**GitLab CI/CD** (For automation)
+
+•	**kubectl** (For managing the cluster)
+
+•	**Ingress Controller** (For exposing the service)
+
+---
+
+**Step 1: Set Up a Multi-Node Kind Cluster**
+
+Create a **Kind cluster configuration file** (kind-cluster.yaml):
+
+```bash
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+- role: worker
+- role: worker
+```
+
+Create the cluster:
+
+```bash
+kind create cluster --name devops-project --config kind-cluster.yaml
+```
+
+Verify:
+
+```bash
+kubectl get nodes
+```
+
+---
+
+**Step 2: Create a Node.js + MongoDB App**
+
+**Backend (Node.js API)**
+
+Create server.js:
+
+```bash
+const express = require('express');
+const mongoose = require('mongoose');
+
+const app = express();
+const port = process.env.PORT || 3000;
+const dbUrl = process.env.MONGO_URL || "mongodb://mongo:27017/devopsdb";
+
+mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log("MongoDB Connected"))
+    .catch(err => console.log(err));
+
+app.get("/", (req, res) => {
+    res.send("Hello from DevOps project running on Kubernetes!");
+});
+
+app.listen(port, () => console.log(`Server running on port ${port}`));
+```
+
+Create Dockerfile:
+
+```bash
+FROM node:18
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+CMD ["node", "server.js"]
+```
+
+---
+
+Step 3: Write Kubernetes Manifests
+
+**Deployment & Service for Node.js App**
+
+
+Create app-deployment.yaml:
+
+```bash
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: node-app
+  template:
+    metadata:
+      labels:
+        app: node-app
+    spec:
+      containers:
+        - name: node-app
+          image: mydockerhub/node-app:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGO_URL
+              value: "mongodb://mongo:27017/devopsdb"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-service
+spec:
+  selector:
+    app: node-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: ClusterIP
+```
+
+MongoDB Deployment & Service
+
+```bash
+Create mongo-deployment.yaml:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+        - name: mongo
+          image: mongo
+          ports:
+            - containerPort: 27017
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo
+spec:
+  selector:
+    app: mongo
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+```
+
+---
+
+**Step 4: Apply Kubernetes Manifests**
+
+Apply configurations:
+
+```bash
+kubectl apply -f mongo-deployment.yaml
+kubectl apply -f app-deployment.yaml
+```
+
+Check:
+
+```bash
+kubectl get pods
+kubectl get services
+```
+
+---
+
+**Step 5: Expose the App via Ingress**
+
+Kind does not support LoadBalancer, so we use **Ingress.**
+
+**Install Nginx Ingress Controller**
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+```
+
+Create ingress.yaml:
+
+```bash
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+spec:
+  rules:
+    - host: devops.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: node-service
+                port:
+                  number: 80
+```
+
+Apply:
+
+```bash
+kubectl apply -f ingress.yaml
+```
+
+Edit /etc/hosts (Linux/Mac) or C:\Windows\System32\drivers\etc\hosts (Windows):
+
+```bash
+127.0.0.1 devops.local
+```
+
+Now, visit http://devops.local.
+
+---
+
+**Step 6: Automate Deployment with GitLab CI/CD**
+
+In .gitlab-ci.yml:
+
+```bash
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker build -t mydockerhub/node-app:latest .
+    - docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
+    - docker push mydockerhub/node-app:latest
+
+deploy:
+  stage: deploy
+  script:
+    - kubectl apply -f mongo-deployment.yaml
+    - kubectl apply -f app-deployment.yaml
+    - kubectl apply -f ingress.yaml
+```
+
+---
+
+**Final Testing**
+
+```bash
+curl http://devops.local
+```
+
+Output:
+
+```bash
+Hello from DevOps project running on Kubernetes!
+```
+
+---
+
+**Summary**
+
+•	**Set up a multi-node Kind cluster**
+
+•	**Deployed a Node.js + MongoDB app**
+
+•	**Used Helm and Ingress for management**
+
+•	**Automated deployment with GitLab CI/CD**
