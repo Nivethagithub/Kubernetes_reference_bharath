@@ -9,7 +9,9 @@ Kubernetes (K8s) is a **container orchestration platform** that automates the de
 Kubernetes consists of:
 
 •	**Control Plane (Master Node)**
+
 •	**Worker Nodes**
+
 •	**Networking & Storage Components**
 
 ---
