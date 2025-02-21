@@ -1,4 +1,4 @@
-**Kubernetes Architecture**
+**Kubernetes Architecture Deep Dive**
 
 Kubernetes (K8s) is a **container orchestration platform** that automates the deployment, scaling, and management of containerized applications. It follows a **master-worker architecture**, where the control plane manages the cluster, and worker nodes run applications inside containers.
 
