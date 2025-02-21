@@ -252,5 +252,5 @@ o	Rancher, OpenShift
 
 **Conclusion**
 
-Kubernetes provides a **robust, scalable, and flexible** architecture for deploying containerized applications. Understanding its core components—**Control Plane, Worker Nodes, Networking, Storage, and Security**—is essential for efficient cluster management.
+Kubernetes provides a **robust, scalable, and flexible** architecture for deploying containerized applications. Understanding its core components - **Control Plane, Worker Nodes, Networking, Storage, and Security**—is essential for efficient cluster management.
 
