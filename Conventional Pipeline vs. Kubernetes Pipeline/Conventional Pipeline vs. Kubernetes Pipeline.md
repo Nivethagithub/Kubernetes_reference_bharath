@@ -81,9 +81,9 @@ o	**Canary Deployment** – The new version is deployed to a small percentage of
 
 | Feature               | Conventional Pipeline             | Kubernetes Pipeline             |
 |-----------------------|---------------------------------|---------------------------------|
-| **Artifact Storage**  | Stores binaries in JFrog Artifactory | Stores container images in a Docker registry |
+| **Artifact Storage**  | Stores binaries in Nexus Artifactory | Stores container images in a Docker registry |
 | **Deployment Type**   | VMs or physical servers         | Kubernetes clusters             |
-| **Testing Environments** | Staging, QA, and Production on VMs | Staging, QA, and Production on Kubernetes |
+| **Testing Environments** | Dev, QA, and Production on VMs | Dev, QA, and Production on Kubernetes |
 | **Rollout Strategy**  | Manual deployments             | Automated with Blue-Green & Canary |
 | **Scalability**       | Limited, requires manual intervention | Auto-scaling with Kubernetes  |
 | **Infrastructure Dependence** | Tied to specific VMs/servers | Works across different cloud providers |
