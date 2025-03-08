@@ -1,6 +1,6 @@
 **Kubernetes Patterns: A Comprehensive Guide**
 
-Kubernetes patterns provide reusable solutions to common challenges in container orchestration. These patterns help DevOps engineers design scalable, resilient, and maintainable applications.
+**Kubernetes** patterns provide reusable solutions to common challenges in container orchestration. These **patterns** help DevOps engineers design scalable, resilient, and maintainable applications.
 
 This guide covers **Kubernetes Patterns** in detail, including:
 
