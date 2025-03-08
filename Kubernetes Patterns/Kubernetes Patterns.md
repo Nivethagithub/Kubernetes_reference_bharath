@@ -30,15 +30,15 @@ This guide covers **Kubernetes Patterns** in detail, including:
 
 Each section includes:
 
-•	Definition and Purpose
+**•	Definition and Purpose**
 
-•	How It Works (Analogy & Example)
+**•	How It Works (Analogy & Example)**
 
-•	YAML Configuration Example
+**•	YAML Configuration Example**
 
-•	Best Practices
+**•	Best Practices**
 
-•	Use Cases in Production
+**•	Use Cases in Production**
 
 ---
 
