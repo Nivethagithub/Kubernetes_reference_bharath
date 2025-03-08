@@ -2,7 +2,43 @@
 
 Kubernetes patterns provide reusable solutions to common challenges in container orchestration. These patterns help DevOps engineers design scalable, resilient, and maintainable applications.
 
-This guide covers **Init Containers, Sidecar Containers, Ambassadors, Adapters, Controllers, and Operators**, explaining their purpose, how they work, YAML configurations, best practices, and production use cases.
+This guide covers **Kubernetes Patterns** in detail, including:
+
+• **Init Containers**
+
+• **Sidecar Containers**
+
+• **Ambassadors**
+
+• **Adapters**
+
+• **Controllers**
+
+• **Operators**
+
+•	**Singleton Application**
+
+•	**Batch Job**
+
+•	**Service Discovery**
+
+•	**Stateful Service**
+
+•	**Self-Healing Systems**
+
+•	**Health Probes**
+
+Each section includes:
+
+•	Definition and Purpose
+
+•	How It Works (Analogy & Example)
+
+•	YAML Configuration Example
+
+•	Best Practices
+
+•	Use Cases in Production
 
 ---
 
@@ -312,8 +348,316 @@ spec:
 
 ---
 
+**7. Singleton Application Pattern**
+
+**Definition and Purpose**
+
+A **Singleton Application** is a pattern used for applications that must run as a single instance within a cluster. It ensures that only one replica of a given application is active at any time, typically used for leader election or primary database nodes.
+
+**How It Works (Analogy & Example)**
+
+**Analogy:** Imagine a **company CEO**—there can be multiple managers (replicas), but only one CEO (singleton) who makes final decisions.
+
+**Example**: A **primary database instance** (like PostgreSQL primary node) should have a single leader, ensuring consistency.
+
+**YAML Configuration Example**
+
+```sh
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: singleton-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: singleton
+  template:
+    metadata:
+      labels:
+        app: singleton
+    spec:
+      containers:
+      - name: app
+        image: my-singleton-app:latest
+```
+
+**Best Practices**
+
+•	Use **anti-affinity rules** to prevent scheduling on the same node.
+
+•	Use **Leader Election** if multiple instances must exist but only one should be active.
+
+•	Monitor the singleton instance with **readiness and liveness probes**.
+
+**Use Cases in Production**
+
+**•	Primary database leader (PostgreSQL, MySQL, etc.)**
+
+**•	Application with distributed locks (e.g., Zookeeper, Consul leader node)**
+
+**•	Cron jobs that should run once per cluster**
+
+---
+
+**8. Batch Job Pattern**
+
+**Definition and Purpose**
+
+A **Batch Job** runs tasks that execute once and then terminate upon completion, commonly used for data processing, backup, and report generation.
+
+**How It Works (Analogy & Example)**
+
+**Analogy:** Think of a **baker preparing a cake**—the process runs for a fixed time and completes when the cake is ready.
+
+**Example**: A job that **processes data and saves results** in a database, such as an ETL pipeline.
+
+**YAML Configuration Example**
+
+```sh
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: batch-job-example
+spec:
+  template:
+    spec:
+      containers:
+      - name: batch-job
+        image: my-batch-job:latest
+        command: ["python", "process_data.py"]
+      restartPolicy: Never
+```
+
+**Best Practices**
+
+•	Set **restartPolicy: Never** to avoid infinite retries.
+
+•	Use **BackoffLimit** to limit retries on failure.
+
+•	Use **CronJobs** for scheduled tasks.
+
+**Use Cases in Production**
+
+**•	Database backup jobs**
+
+**•	Log file processing**
+
+**•	Machine learning model training**
+
+---
+
+**9. Service Discovery Pattern**
+
+**Definition and Purpose**
+
+**Service Discovery** allows applications to dynamically discover and communicate with other services inside the Kubernetes cluster.
+
+**How It Works (Analogy & Example)**
+
+**Analogy:** Like a **phone directory**, where users look up numbers instead of memorizing them.
+
+**Example:** A web service discovers a database service dynamically instead of using a hardcoded IP address.
+
+**YAML Configuration Example**
+
+```sh
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-database
+spec:
+  selector:
+    app: database
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+```
+
+**Best Practices**
+
+•	Use **DNS-based service discovery** (my-database.default.svc.cluster.local).
+
+•	Use **headless services** for stateful applications.
+
+•	Implement **load balancing** for stateless services.
+
+**Use Cases in Production**
+
+**•	Microservices communication**
+
+**•	Database service discovery**
+
+**•	Service mesh integration (Istio, Linkerd)**
+
+---
+
+**10. Stateful Service Pattern**
+
+**Definition and Purpose**
+
+A **Stateful Service** requires persistent storage and stable network identities, such as databases or distributed systems.
+
+**How It Works (Analogy & Example)**
+
+**Analogy**: A **bank account**, where transactions must be recorded accurately, and each account has a unique identity.
+
+**Example:** A **MongoDB ReplicaSet** where each node has a unique identity and maintains persistent storage.
+
+**YAML Configuration Example**
+
+```sh
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb
+spec:
+  selector:
+    matchLabels:
+      app: mongodb
+  serviceName: "mongodb"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo
+        volumeMounts:
+        - name: data
+          mountPath: /data/db
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
+```
+
+**Best Practices**
+
+•	Use **PersistentVolumes** to retain data.
+
+•	Use **StatefulSets** to maintain stable identities.
+
+•	Configure **Pod Disruption Budgets (PDBs)** for high availability.
+
+**Use Cases in Production**
+
+**•	Databases (MongoDB, MySQL, PostgreSQL, etc.)**
+
+**•	Message queues (Kafka, RabbitMQ)**
+
+**•	Distributed storage systems (Ceph, GlusterFS)**
+
+---
+
+**11. Self-Healing Systems Pattern**
+
+**Definition and Purpose**
+
+**Self-Healing** ensures that failed applications automatically restart or reschedule to maintain uptime.
+
+**How It Works (Analogy & Example)**
+
+**Analogy:** A **car with automatic crash recovery**, which restarts itself if the engine stalls.
+
+**Example:** Kubernetes detects a failed pod and automatically restarts it.
+
+**YAML Configuration Example**
+
+```sh
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: self-healing-example
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: resilient-app
+  template:
+    metadata:
+      labels:
+        app: resilient-app
+    spec:
+      containers:
+      - name: app
+        image: resilient-app:latest
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+```
+
+**Best Practices**
+
+•	Use **liveness and readiness probes** for failure detection.
+
+•	Set **Pod Disruption Budgets (PDBs)** to maintain availability.
+
+•	Use **Horizontal Pod Autoscaler (HPA)** for dynamic scaling.
+
+**Use Cases in Production**
+
+**•	Mission-critical applications**
+
+**•	Highly available web services**
+
+**•	Edge computing workloads**
+
+---
+
+**12. Health Probes Pattern**
+
+**Definition and Purpose**
+
+**Health Probes** allow Kubernetes to check if a container is running and responding correctly.
+
+**How It Works (Analogy & Example)**
+
+**Analogy:** Like a **doctor checking a patient’s vital signs** to determine health.
+
+**Example:** Kubernetes checks if a **web application is alive** and removes unhealthy pods.
+
+**YAML Configuration Example**
+
+```sh
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 10
+```
+
+**Best Practices**
+
+•	Use **liveness probes** to restart failing applications.
+
+•	Use **readiness probes** to prevent traffic to unready pods.
+
+•	Set **graceful shutdown hooks** to clean up resources.
+
+**Use Cases in Production**
+
+**•	Web applications with uptime guarantees**
+
+**•	Database connection health checks**
+
+**•	API microservices**
+
+---
+
 **Conclusion**
 
-These Kubernetes patterns help DevOps engineers design scalable, resilient architectures. Whether you're initializing dependencies with **Init Containers**, enhancing observability with **Sidecars**, or automating workflows with **Operators**, understanding these patterns will improve your Kubernetes expertise.
+These Kubernetes patterns help DevOps engineers design scalable, resilient architectures.
 
 For further reading, refer to the Kubernetes Documentation.
