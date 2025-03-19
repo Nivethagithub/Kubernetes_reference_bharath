@@ -154,7 +154,9 @@ o	Taints and tolerations
 - **Manages:**
 
     ◦ Load balancers
+  
     ◦ Storage provisioning
+  
     ◦ Node management
 
 ---
