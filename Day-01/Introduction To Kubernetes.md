@@ -8,13 +8,13 @@ If you're looking for a long-term career in DevOps, mastering Kubernetes is a mu
 
 By the end of this article, you'll understand:
 
-•	The fundamental problems with Docker
+**•	The fundamental problems with Docker**
 
-•	Why Kubernetes is essential for DevOps
+**•	Why Kubernetes is essential for DevOps**
 
-•	How Kubernetes solves real-world container management issues
+**•	How Kubernetes solves real-world container management issues**
 
-•	Key Kubernetes concepts such as Auto-scaling, Auto-healing, and Cluster Architecture
+**•	Key Kubernetes concepts such as Auto-scaling, Auto-healing, and Cluster Architecture**
 
 **Why Kubernetes?**
 
