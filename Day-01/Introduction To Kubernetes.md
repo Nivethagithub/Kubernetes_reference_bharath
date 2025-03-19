@@ -225,7 +225,7 @@ As a DevOps engineer, learning Kubernetes will significantly boost your career p
 
 If you're serious about mastering Kubernetes, start exploring:
 
-•	**Official Kubernetes Docs**: (https://kubernetes.io/docs/home/)
+•	**Official Kubernetes Docs**: https://kubernetes.io/docs/home/
 
 •	**Kubernetes GitHub Repository**: https://github.com/kubernetes/kubernetes
 
