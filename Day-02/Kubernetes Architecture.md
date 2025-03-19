@@ -87,11 +87,11 @@ A **pod** is the smallest deployable unit in Kubernetes, equivalent to a **Docke
 
 •	Kubernetes supports multiple runtimes:
 
-o	Docker
+    ◦ Docker
 
-o	Containerd
+    ◦ Containerd
 
-o	CRI-O
+    ◦ CRI-O
 
 ---
 
