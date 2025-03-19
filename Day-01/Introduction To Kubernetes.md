@@ -4,7 +4,7 @@
 
 In the evolving world of DevOps, **Kubernetes** has become an essential tool for container orchestration. While many DevOps engineers focus primarily on CI/CD pipelines, Kubernetes plays a critical role in managing containerized applications at scale.
 
-If you're looking for a long-term career in DevOps, mastering Kubernetes is a must. In this guide, we will break down why Kubernetes is necessary, how it solves critical containerization challenges, and how it differs from Docker.
+If you're looking for a long-term career in DevOps, mastering **Kubernetes** is a must. In this guide, we will break down why Kubernetes is necessary, how it solves critical containerization challenges, and how it differs from Docker.
 
 By the end of this article, you'll understand:
 
