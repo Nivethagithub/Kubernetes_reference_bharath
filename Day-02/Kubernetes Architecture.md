@@ -153,11 +153,11 @@ o	Taints and tolerations
 
 - **Manages:**
 
-    ◦ Load balancers
+  - ◦ Load balancers
   
-    ◦ Storage provisioning
+  - ◦ Storage provisioning
   
-    ◦ Node management
+  - ◦ Node management
 
 ---
 
