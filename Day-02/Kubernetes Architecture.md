@@ -8,7 +8,7 @@ This guide explains **Kubernetes architecture**, including its key components, c
 
 Before diving into Kubernetes architecture, let’s address a common question:
 
-Why is Kubernetes abbreviated as K8s?
+Why is Kubernetes abbreviated as **K8s**?
 
 The word **Kubernetes** has 10 letters. The abbreviation **K8s** replaces the middle 8 letters with the number **8**:
 
