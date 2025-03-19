@@ -152,6 +152,7 @@ o	Taints and tolerations
 •	Allows Kubernetes to integrate with cloud providers like AWS, Azure, and GCP.
 
 - **Manages:**
+
     ◦ Load balancers
     ◦ Storage provisioning
     ◦ Node management
