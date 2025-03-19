@@ -32,7 +32,7 @@ Before diving into Kubernetes, you need a solid understanding of **Docker and co
 
 **•	Multi-stage Docker builds**
 
-Now, let's explore the **limitations of Docker** and how Kubernetes solves these problems.
+Now, let's explore the **limitations of Docker** and how **Kubernetes** solves these problems.
 
 **Problems with Docker and Why Kubernetes is Needed**
 
