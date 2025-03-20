@@ -22,7 +22,7 @@ We will also **use practical examples and tools like kubectl and CubeShark to vi
 
 By default, each pod in Kubernetes gets a unique **IP address**, but this IP is not persistent. If a pod dies and a new one replaces it, the IP changes. This makes direct communication unreliable.
 
-Kubernetes Services provide:
+**Kubernetes Services** provide:
 
 **•	Stable networking** by using labels and selectors instead of dynamic pod IPs.
 
