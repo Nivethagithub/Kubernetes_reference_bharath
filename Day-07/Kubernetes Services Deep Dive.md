@@ -255,7 +255,7 @@ NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP    PORT(S)
 python-app-service     LoadBalancer   10.98.211.124    34.125.23.45   80/TCP
 ```
 
-Accessing the Application:
+**Accessing the Application:**
 
 ```sh
 curl http://34.125.23.45
