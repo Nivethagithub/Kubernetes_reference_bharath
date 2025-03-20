@@ -210,7 +210,7 @@ o	**Traefik** (best for Kubernetes-native applications).
 
 o	**HAProxy, AWS ALB, GKE Ingress** for cloud-native deployments.
 
-**.	Use TLS/HTTPS for Secure Ingress**
+**2.	Use TLS/HTTPS for Secure Ingress**
 
 o	Encrypt traffic using **Let’s Encrypt + cert-manager**.
 
