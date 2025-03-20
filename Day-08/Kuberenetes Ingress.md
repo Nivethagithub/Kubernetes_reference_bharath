@@ -32,13 +32,13 @@ o	Kubernetes **Services** only provide **round-robin** load balancing.
 
 o	They **lack advanced load balancing features** such as:
 
-   **1. Path-based routing** (/app1 → Service A, /app2 → Service B)
-  
-  **2. Host-based routing** (app.example.com → Service A, api.example.com → Service B)
-  
-  **3. Sticky sessions** (session persistence for users)
-  
-  **4. TLS termination** (secure HTTPS traffic handling)
+▶ **Path-based routing** (`/app1 → Service A`, `/app2 → Service B`)
+
+▶ **Host-based routing** (`app.example.com → Service A`, `api.example.com → Service B`)
+
+▶ **Sticky sessions** (session persistence for users)
+
+▶ **TLS termination** (secure HTTPS traffic handling)
   
 **2.	High Cloud Costs for Load Balancers**
 
