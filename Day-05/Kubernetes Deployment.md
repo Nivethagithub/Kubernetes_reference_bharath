@@ -262,4 +262,4 @@ metadata:
 
 •	Explore **advanced topics like Ingress, Service Mesh, and StatefulSets**.
 
-If you found this article helpful, ⭐ **Star this repository on GitHub**🚀
+If you found this article helpful, ⭐ **Star this repository on GitHub** 🚀
