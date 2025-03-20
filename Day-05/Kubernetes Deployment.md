@@ -117,7 +117,7 @@ If a Pod is deleted **accidentally** or crashes due to errors, **Kubernetes ensu
 
 **1.	Check running Pods**:
 
-
+```sh
 kubectl get pods
 ```
 
