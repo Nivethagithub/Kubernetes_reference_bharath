@@ -32,7 +32,7 @@ o	Kubernetes **Services** only provide **round-robin** load balancing.
 
 o	They **lack advanced load balancing features** such as:
 
-  **1. Path-based routing** (/app1 → Service A, /app2 → Service B)
+   **1. Path-based routing** (/app1 → Service A, /app2 → Service B)
   
   **2. Host-based routing** (app.example.com → Service A, api.example.com → Service B)
   
