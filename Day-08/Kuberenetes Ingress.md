@@ -2,7 +2,7 @@
 
 **Introduction**
 
-Kubernetes Ingress is a crucial concept in **container orchestration**, helping manage external access to services within a Kubernetes cluster. Many engineers find Ingress **complex** due to two primary reasons:
+**Kubernetes Ingress** is a crucial concept in **container orchestration**, helping manage external access to services within a Kubernetes cluster. Many engineers find Ingress **complex** due to two primary reasons:
 
 **1.	Understanding the need for Ingress** – If the purpose of Ingress is unclear, the concept can seem confusing.
 
