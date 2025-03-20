@@ -52,11 +52,6 @@ A **Pod** is the **smallest deployable unit in Kubernetes**. Unlike Docker, wher
 
 **Pod vs. Docker Container**
 
-
-Bharath Reddy <nbkumar2103@gmail.com>
-5:46 PM (17 minutes ago)
-to me
-
 | Feature          | Docker Container | Kubernetes Pod |
 |-----------------|----------------|---------------|
 | Deployment     | `docker run` command | `kubectl apply -f pod.yaml` |
