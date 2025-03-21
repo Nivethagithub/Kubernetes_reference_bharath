@@ -88,11 +88,11 @@ A **Secret** is similar to a ConfigMap but intended for sensitive data. Kubernet
 
 Typical data stored in Secrets:
 
-•	Database passwords
+•	**Database passwords**
 
-•	API tokens
+•	**API tokens**
 
-•	TLS certificates
+•	**TLS certificates**
 
 **Secret Creation Example (Imperative)**
 
