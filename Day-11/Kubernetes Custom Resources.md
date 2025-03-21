@@ -160,7 +160,7 @@ Most DevOps Engineers don't write controllers, but understanding the basics help
 
 •	**Kubernetes Client**: client-go
 
-•	**Controller Framework**: controller-runtime
+•	**Controller Framework**: https://github.com/kubernetes-sigs/controller-runtime
 
 **Key Concepts**
 
