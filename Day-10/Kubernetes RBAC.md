@@ -30,7 +30,7 @@ As a DevOps Engineer, you are often responsible for:
 
 •	Debugging access-related issues
 
-Understanding RBAC helps you:
+**Understanding RBAC helps you:**
 
 •	Avoid over-permissive access
 
