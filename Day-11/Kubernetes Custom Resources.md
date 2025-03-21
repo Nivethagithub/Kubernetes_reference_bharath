@@ -197,8 +197,11 @@ Custom Resources, CRDs, and Custom Controllers are essential tools for extending
 As a DevOps Engineer:
 
 •	You may not write custom controllers, but you will often deploy and debug them
+
 •	Learn to read CRD schemas and validate YAML manifests
+
 •	Use Helm and GitOps tools to manage these resources declaratively
+
 By mastering this part of Kubernetes, you'll unlock powerful new capabilities and contribute more effectively to scalable, modern infrastructure.
 
 ---
