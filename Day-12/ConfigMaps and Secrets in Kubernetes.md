@@ -20,13 +20,13 @@ Both resources allow your application to be environment-agnostic and more secure
 
 A **ConfigMap** is a Kubernetes object used to decouple configuration data from application code. It stores non-sensitive key-value pairs such as:
 
-•	Database host
+•	**Database host**
 
-•	Port numbers
+•	**Port numbers**
 
-•	Log levels
+•	**Log levels**
 
-•	Feature flags
+•	**Feature flags**
 
 ConfigMaps are often used to provide these values to a container via environment variables or mounted files.
 
