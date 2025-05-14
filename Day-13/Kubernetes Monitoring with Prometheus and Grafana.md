@@ -93,7 +93,7 @@ Install Prometheus:
 helm install prometheus prometheus-community/prometheus
 ```
 
-Expose Prometheus service:
+Expose Prometheus service to nodeport for accessing via browser:
 
 ```sh
 kubectl expose service prometheus-server \
@@ -126,7 +126,7 @@ Install Grafana:
 helm install grafana grafana/grafana
 ```
 
-Expose Grafana:
+Expose Grafana to nodeport for accessing via browser: (In production this step isn't required, sice we use ingress. Create rules and start using grafana)
 
 ```sh
 kubectl expose service grafana \
@@ -135,7 +135,7 @@ kubectl expose service grafana \
   --name=grafana-ext
 ```
 
-Get Grafana password:
+Get Grafana password from the terminal command:
 
 ```sh
 kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode
@@ -174,16 +174,23 @@ http://<minikube-ip>:<node-port>/metrics
 
 ---
 
+**Sync/connect grafana with prometheus:**
+
+1. Go to data source option.
+2. Select prometheus
+3. Add the IP address of the  prometheus with port
+4. click save and test.
+
+---
 **Creating Dashboards in Grafana**
 
 Instead of building from scratch, import a community dashboard:
 
 **1.**	Click “Import” in Grafana
 
-**2.**	Use Dashboard ID: 3662
+**2.**	Use Dashboard ID: 3662 ## This ID is a pre-existing template to retrieve the data from prometheus. It's a template of pre-defined promQL query.
 
-**3.**	Select Prometheus as the data source
-
+**3.**	Select Prometheus as the data source. 
 This pre-built dashboard displays:
 
 •	Node CPU/memory usage
