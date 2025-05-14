@@ -171,6 +171,20 @@ Access metrics via:
 ```sh
 http://<minikube-ip>:<node-port>/metrics
 ```
+### How to get the same in the prometheus
+
+kubectl get cm
+
+kubectl edit cm prometheus-server
+
+**Add the below code**
+```sh
+# Sample Prometheus scrape config snippet
+scrape_configs:
+  - job_name: 'kubernetes'
+    static_configs:
+      - targets: ['<NODE_IP>:<PORT>']  ### Add the required endpoint
+```
 
 ---
 
