@@ -103,7 +103,7 @@ The **control plane manages** the cluster and schedules workloads on worker node
 
 **2.	Scheduler** – Assigns pods to nodes based on resource availability.
 
-**3.	Controller Manager** – Manages controllers like ReplicaSets.
+**3.	Controller Manager** – Manages controllers like ReplicaSets. Also it check the desired state of the pod, in case of any failure, it make to restart the container
 
 **4.	Etcd** – Stores the cluster state in a key-value database.
 
